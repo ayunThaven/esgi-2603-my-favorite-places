@@ -11,6 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run server tests
+        working-directory: ./server
+        run: |
+          corepack enable
+          yarn install --frozen-lockfile
+          yarn test
+
       - name: Build server image
         run: docker build -t mfp-server:latest ./server
 
